@@ -500,13 +500,19 @@ public function change_password(Request $request)
 
 
 
+    public function view_products(Request $request)
+{
+    $category = $request->input('category');
+    // dd($category); // Debugging
 
-public function view_products()
-    {
+    if ($category) {
+        $viewProducts = Products::where('category', $category)->get();
+    } else {
         $viewProducts = Products::all();
-        return view('management.products', ['viewProducts' => $viewProducts]);
-
     }
+
+    return view('management.products', ['viewProducts' => $viewProducts]);
+}
 
 
 

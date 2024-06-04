@@ -17,7 +17,6 @@
                             Add Products</a>
                     </div>
                     @if(session('success'))
-                    <!-- Success message display -->
                     <div class="m-3 alert alert-success alert-dismissible fade show" id="alert-success" role="alert">
                         <span class="alert-text text-white">
                             {{ session('success') }}
@@ -29,11 +28,24 @@
                     @endif
                 </div>
                 <hr>
+
                 <div class="card-body pt-0 pb-2">
                     <div class="container">
-                        <div class="row">
+                        <div class="d-flex justify-content-center mb-4">
+                            <form id="categoryForm" action="{{ route('view_products') }}" method="GET"> <!-- Adjust the route as per your application -->
+                                @csrf <!-- Add CSRF token if you're using Laravel -->
+
+                                <button type="submit" class="btn btn-primary mx-2 category-btn" name="category" value="">All</button>
+                                <button type="submit" class="btn btn-primary mx-2 category-btn" name="category" value="Fruits">Fruits</button>
+                                <button type="submit" class="btn btn-primary mx-2 category-btn" name="category" value="Vegetables">Vegetables</button>
+                                <button type="submit" class="btn btn-primary mx-2 category-btn" name="category" value="Seafood">Seafood</button>
+                            </form>
+                        </div>
+
+
+                        <div class="row" id="productGrid">
                             @foreach ($viewProducts as $prod_details)
-                            <div class="col-md-4 d-flex align-items-stretch">
+                            <div class="col-md-4 d-flex align-items-stretch product-card" data-category="{{ $prod_details->category }}">
                                 <div class="card mb-4 shadow-sm">
                                     <img src="{{ asset('storage/products_image/' . $prod_details->product_image) }}" alt="Product Image" class="card-img-top img-fluid">
                                     <div class="card-body d-flex flex-column">
@@ -65,12 +77,14 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
 </div>
 </div>
 <style>
+    /* CSS for card layout */
     .card {
         height: 100%;
         display: flex;
@@ -99,17 +113,13 @@
     .card-body .mt-auto {
         margin-top: auto;
     }
+
+    /* Hide all cards by default */
+    .product-card {
+        display: none;
+    }
 </style>
 
-
-<script>
-    $(document).ready(function () {
-        var table = $('#enrolledStudentsTable').DataTable();
-        $('#search').on('keyup', function () {
-            table.search($(this).val()).draw();
-        });
-    });
-</script>
 
 @endsection
 
