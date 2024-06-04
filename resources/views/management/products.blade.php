@@ -33,15 +33,15 @@
                     <div class="container">
                         <div class="row">
                             @foreach ($viewProducts as $prod_details)
-                            <div class="col-md-4">
+                            <div class="col-md-4 d-flex align-items-stretch">
                                 <div class="card mb-4 shadow-sm">
-                                    <img src="{{ asset('storage/products_image/' . $prod_details->product_image) }}" alt="Product Image" class="img-fluid" style="max-width: 100%; height: auto;">
-                                    <div class="card-body">
+                                    <img src="{{ asset('storage/products_image/' . $prod_details->product_image) }}" alt="Product Image" class="card-img-top img-fluid">
+                                    <div class="card-body d-flex flex-column">
                                         <p class="card-text font-weight-bold">ID: {{ $prod_details->product_id }}</p>
                                         <p class="card-text font-weight-bold">Name: {{ $prod_details->product_name }}</p>
                                         <p class="card-text text-secondary font-weight-bold">Category: {{ $prod_details->category }}</p>
                                         <p class="card-text font-weight-bold">Price: {{ $prod_details->product_price }}</p>
-                                        <div class="d-flex justify-content-between align-items-center">
+                                        <div class="mt-auto">
                                             <div class="btn-group">
                                                 <a class="btn btn-success btn-sm view-btn text-white" data-toggle="modal" data-target="#viewStudentModal{{ $prod_details->product_id }}">
                                                     <i class="fas fa-eye"></i>
@@ -70,15 +70,22 @@
     </div>
 </div>
 </div>
-
 <style>
-    .card-body {
-        padding: 1rem;
+    .card {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
     }
 
     .card img {
         height: 200px;
         object-fit: cover;
+    }
+
+    .card-body {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
     }
 
     .card-text {
@@ -87,6 +94,10 @@
 
     .btn-group .btn {
         margin-right: 0.2rem;
+    }
+
+    .card-body .mt-auto {
+        margin-top: auto;
     }
 </style>
 
