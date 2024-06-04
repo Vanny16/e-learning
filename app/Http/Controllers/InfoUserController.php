@@ -522,7 +522,7 @@ public function save_product(Request $request)
             'discount' => 'required',
             'product_image' => 'required',
             'product_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'g-recaptcha-response' => 'required|captcha',
+            // 'g-recaptcha-response' => 'required|captcha',
             // Add other validation rules as needed
         ]);
 
@@ -533,6 +533,7 @@ public function save_product(Request $request)
         $imageName = time() . '_' . $image->getClientOriginalName();
         // Store the file in the storage/app/public directory
         $image->storeAs('public/products_image', $imageName);
+        // dd($imageName);
     } else {
         // Handle if no file is uploaded
         return redirect()->back()->with('error', 'No image uploaded.');

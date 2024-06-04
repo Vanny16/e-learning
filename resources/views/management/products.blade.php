@@ -30,164 +30,66 @@
                 </div>
                 <hr>
                 <div class="card-body pt-0 pb-2">
-                    <div class="table-responsive">
-                        <table id="enrolledStudentsTable" class="table align-items-center mb-0">
-                            <thead>
-                                <tr>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        ID
-                                    </th>
-                                    <th
-                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Product Image
-                                    </th>
-                                    <th
-                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Product Name
-                                    </th>
-                                    <th
-                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Category
-                                    </th>
-                                    <th
-                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Price
-                                    </th>
-                                    <th
-                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Action
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($viewProducts as $prod_details)
-                                <tr>
-                                    <td class="ps-4">
-                                        <p class="text-xs font-weight-bold mb-0">{{ $prod_details->product_id }}</p>
-                                    </td>
-                                    <td class="text-center">
-                                        <img src="{{ asset('storage/products_image/' . $prod_details->product_image) }}" alt="Product Image" class="img-fluid" style="max-width: 100px;">
-                                    </td>
-
-
-
-                                    <td class="text-center">
-                                        <p class="text-xs font-weight-bold mb-0">
-                                           {{ $prod_details->product_name }}
-                                        </p>
-                                    </td>
-                                    <td class="text-center">
-                                        <span class="text-secondary text-xs font-weight-bold">{{
-                                            $prod_details->category }}</span>
-                                    </td>
-                                    <td class="text-center">
-                                        <p class="text-xs font-weight-bold mb-0">{{ $prod_details->product_price }}</p>
-                                    </td>
-
-                                    <td style="text-align:center">
-                                        <a class="btn btn-success btn-sm view-btn text-white" data-toggle="modal"
-                                            data-target="#viewStudentModal{{ $prod_details->product_id }}">
-                                            <i class="fas fa-eye"></i>
-                                        </a>
-                                        <a class="btn btn-secondary btn-sm view-btn text-white"
-                                            href="{{ route('management.product_details', $prod_details->product_id) }}">
-                                            <i class="fas fa-user-edit"></i>
-                                        </a>
-                                        <a class="btn btn-danger btn-sm text-white" href="#"
-                                            onclick="event.preventDefault();
-                                                if (confirm('Are you sure you want to delete this student record?'))
-                                                    document.getElementById('delete-form-{{ $prod_details->product_id }}').submit();">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
-                                        <form id="delete-form-{{ $prod_details->product_id }}"
-                                            action="{{ route('delete_enrollee', $prod_details->product_id) }}" method="POST"
-                                            style="display: none;">
+                    <div class="container">
+                        <div class="row">
+                            @foreach ($viewProducts as $prod_details)
+                            <div class="col-md-4">
+                                <div class="card mb-4 shadow-sm">
+                                    <img src="{{ asset('storage/products_image/' . $prod_details->product_image) }}" alt="Product Image" class="img-fluid" style="max-width: 100%; height: auto;">
+                                    <div class="card-body">
+                                        <p class="card-text font-weight-bold">ID: {{ $prod_details->product_id }}</p>
+                                        <p class="card-text font-weight-bold">Name: {{ $prod_details->product_name }}</p>
+                                        <p class="card-text text-secondary font-weight-bold">Category: {{ $prod_details->category }}</p>
+                                        <p class="card-text font-weight-bold">Price: {{ $prod_details->product_price }}</p>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="btn-group">
+                                                <a class="btn btn-success btn-sm view-btn text-white" data-toggle="modal" data-target="#viewStudentModal{{ $prod_details->product_id }}">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                                <a class="btn btn-secondary btn-sm view-btn text-white" href="{{ route('management.product_details', $prod_details->product_id) }}">
+                                                    <i class="fas fa-user-edit"></i>
+                                                </a>
+                                                <a class="btn btn-danger btn-sm text-white" href="#" onclick="event.preventDefault(); if (confirm('Are you sure you want to delete this product?')) document.getElementById('delete-form-{{ $prod_details->product_id }}').submit();">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <form id="delete-form-{{ $prod_details->product_id }}" action="{{ route('delete_enrollee', $prod_details->product_id) }}" method="POST" style="display: none;">
                                             @csrf
                                             @method('DELETE')
                                         </form>
-                                    </td>
-                                </tr>
-                                {{-- <div class="modal fade" id="viewStudentModal{{ $prod_details->product_id }}" tabindex="-1"
-                                    aria-labelledby="viewStudentModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered modal-lg">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="viewStudentModalLabel">Product Information
-                                                </h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body" id="modal-body-content">
-                                                <div class="row mb-2">
-                                                    <div class="col-4">
-                                                        <strong>Last Name:</strong>
-                                                        <span>{{ $enrolledStudent->last_name }}</span>
-                                                    </div>
-                                                    <div class="col-4">
-                                                        <strong>First Name:</strong>
-                                                        <span>{{ $enrolledStudent->first_name }}</span>
-                                                    </div>
-                                                    <div class="col-4">
-                                                        <strong>Middle Name:</strong>
-                                                        <span>{{ $enrolledStudent->middle_name }}</span>
-                                                    </div>
-                                                </div>
-                                                <div class="row mb-2">
-                                                    <div class="col-6">
-                                                        <strong>Date Enrolled:</strong>
-                                                        <span>{{ $enrolledStudent->created_at->format('d/m/y') }}</span>
-                                                    </div>
-                                                </div>
-                                                <div class="row mb-2">
-                                                    <div class="col-6">
-                                                        <strong>Student ID:</strong>
-                                                        <span>{{ $enrolledStudent->student_id }}</span>
-                                                    </div>
-                                                </div>
-                                                <div class="row mb-2">
-                                                    <div class="col-12">
-                                                        <strong>Mobile Number:</strong>
-                                                        <span>{{ $enrolledStudent->mobile_number }}</span>
-                                                    </div>
-                                                </div>
-                                                <div class="row mb-2">
-                                                    <div class="col-12">
-                                                        <strong>Date of Birth:</strong>
-                                                        <span>{{ $enrolledStudent->dob }}</span>
-                                                    </div>
-                                                </div>
-                                                <div class="row mb-2">
-                                                    <div class="col-12">
-                                                        <strong>Address:</strong>
-                                                        <span>{{ $enrolledStudent->address }}</span>
-                                                    </div>
-                                                </div>
-                                                <div class="row mb-2">
-                                                    <div class="col-12">
-                                                        <strong>Department:</strong>
-                                                        <span>{{ $enrolledStudent->department }}</span>
-                                                    </div>
-                                                </div>
-                                                <div class="row mb-2">
-                                                    <div class="col-12">
-                                                        <strong>Program:</strong>
-                                                        <span>{{ $enrolledStudent->program }}</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
-                                </div> --}}
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
                     </div>
-                    @endforeach
-                    </tbody>
-                    </table>
                 </div>
             </div>
         </div>
     </div>
 </div>
 </div>
+
+<style>
+    .card-body {
+        padding: 1rem;
+    }
+
+    .card img {
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .card-text {
+        margin-bottom: 0.5rem;
+    }
+
+    .btn-group .btn {
+        margin-right: 0.2rem;
+    }
+</style>
+
 
 <script>
     $(document).ready(function () {
