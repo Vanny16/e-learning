@@ -53,7 +53,7 @@
               <div class="numbers">
                 <p class="text-sm mb-0 text-capitalize font-weight-bold">Total Users</p>
                 <h5 class="font-weight-bolder mb-0">
-                  32
+                  {{ $total_users_count }}
 
                 </h5>
               </div>
