@@ -34,7 +34,7 @@ class SessionsController extends Controller
             if(auth()->user()->user_role == 4)
             return redirect('profile')->with(['success' => 'You are logged in.']);
         else{
-            return redirect('dashboard')->with(['success' => 'You are logged in.']);
+            return redirect()->action([DashboardController::class, 'main'])->with(['success' => 'You are logged in.']);
 
         }
 
@@ -45,7 +45,6 @@ class SessionsController extends Controller
 
     public function destroy()
     {
-
         Auth::logout();
 
         return redirect('/login')->with(['success' => 'You\'ve been logged out.']);

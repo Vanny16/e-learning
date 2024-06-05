@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DatabaseController;
+use App\Http\Controllers\DashboardController;
+
 
 
 
@@ -30,9 +32,7 @@ use App\Http\Controllers\DatabaseController;
 Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('/', [HomeController::class, 'home']);
-	Route::get('dashboard', function () {
-		return view('dashboard');
-	})->name('dashboard');
+    Route::get('/dashboard-admin', [DashboardController::class, 'main'])->name('dashboard');
 
 	Route::get('billing', function () {
 		return view('billing');

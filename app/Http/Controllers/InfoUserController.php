@@ -498,8 +498,6 @@ public function change_password(Request $request)
     // ------------------------------------------------------------------------------------------------------
 
 
-
-
     public function view_products(Request $request)
 {
     $category = $request->input('category');

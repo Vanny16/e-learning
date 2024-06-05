@@ -11,7 +11,7 @@
               <div class="numbers">
                 <p class="text-sm mb-0 text-capitalize font-weight-bold">Total Products </p>
                 <h5 class="font-weight-bolder mb-0">
-                  30
+                  {{ $total_products_count }}
                 </h5>
               </div>
             </div>
