@@ -35,10 +35,11 @@
                             <form id="categoryForm" action="{{ route('view_products') }}" method="GET"> <!-- Adjust the route as per your application -->
                                 @csrf <!-- Add CSRF token if you're using Laravel -->
 
-                                <button type="submit" class="btn btn-primary mx-2 category-btn" name="category" value="">All</button>
-                                <button type="submit" class="btn btn-primary mx-2 category-btn" name="category" value="Fruits">Fruits</button>
-                                <button type="submit" class="btn btn-primary mx-2 category-btn" name="category" value="Vegetables">Vegetables</button>
-                                <button type="submit" class="btn btn-primary mx-2 category-btn" name="category" value="Seafood">Seafood</button>
+                                <button type="submit" class="btn btn-success mx-2 category-btn" name="category" value="">All</button>
+                                <button type="submit" class="btn btn-success mx-2 category-btn" name="category" value="Fruits">Fruits</button>
+                                <button type="submit" class="btn btn-success mx-2 category-btn" name="category" value="Vegetables">Vegetables</button>
+                                <button type="submit" class="btn btn-success mx-2 category-btn" name="category" value="Seafood">Seafood</button>
+                                <button type="submit" class="btn btn-success mx-2 category-btn" name="category" value="Meat">Meat</button>
                             </form>
                         </div>
 
@@ -52,7 +53,7 @@
                                         <p class="card-text font-weight-bold">ID: {{ $prod_details->product_id }}</p>
                                         <p class="card-text font-weight-bold">Name: {{ $prod_details->product_name }}</p>
                                         <p class="card-text text-secondary font-weight-bold">Category: {{ $prod_details->category }}</p>
-                                        <p class="card-text font-weight-bold">Price: {{ $prod_details->product_price }}</p>
+                                        <p class="card-text font-weight-bold">Price: {{ $prod_details->price }}</p>
                                         <div class="mt-auto">
                                             <div class="btn-group">
                                                 <a class="btn btn-success btn-sm view-btn text-white" data-toggle="modal" data-target="#viewStudentModal{{ $prod_details->product_id }}">
